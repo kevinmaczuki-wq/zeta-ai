@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zeta AI · Modern Chat</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="app">
+        <!-- LOGIN SCREEN -->
+        <div class="login-screen" id="loginScreen">
+            <div class="login-card">
+                <h1 class="zeta-logo">Zeta AI</h1>
+                <div id="authMessage" class="auth-message"></div>
+                <form id="loginForm">
+                    <div class="input-field">
+                        <input type="email" id="email" placeholder="Email" required />
+                    </div>
+                    <div class="input-field">
+                        <input type="password" id="password" placeholder="Password" required />
+                    </div>
+                    <button type="button" class="btn-github" id="githubLoginBtn">
+                        <i class="fab fa-github"></i> Login with GitHub
+                    </button>
+                    <button type="submit" class="btn-login">Login</button>
+                    <p class="signup-text">
+                        Don't have an account? <a href="#" id="signUpLink">Sign Up</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+
+        <!-- CHAT SCREEN -->
+        <div class="chat-screen" id="chatScreen">
+            <!-- SIDEBAR -->
+            <div class="chat-sidebar">
+                <button class="new-chat-btn" id="newChatBtnSidebar">
+                    <i class="fas fa-plus"></i> New Chat
+                </button>
+                
+                <div class="sidebar-header">
+                    <h3><i class="fas fa-history"></i> CHAT HISTORY</h3>
+                </div>
+                
+                <div id="chatList"></div>
+            </div>
+
+            <!-- CHAT CONTAINER -->
+            <div class="chat-container">
+                <!-- HEADER -->
+                <div class="chat-header">
+                    <h1><i class="fas fa-robot"></i> Zeta AI</h1>
+                    <div class="user-info">
+                        <div class="settings-icon" id="settingsBtn">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                        <div class="user-details" id="userInfo"></div>
+                        <button class="logout-btn" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- MESSAGES -->
+                <div class="messages-container" id="messagesContainer"></div>
+
+                <!-- INPUT -->
+                <div class="input-area">
+                    <div class="input-wrapper">
+                        <input type="text" id="chatInput" placeholder="Ask Zeta AI anything..." autocomplete="off" />
+                    </div>
+                    <button class="send-btn" id="sendBtn">
+                        <i class="fas fa-paper-plane"></i> Send
+                    </button>
+                </div>
+
+                <!-- SETTINGS OVERLAY -->
+                <div class="settings-overlay" id="settingsOverlay">
+                    <div class="settings-panel">
+                        <div class="settings-header">
+                            <h2><i class="fas fa-sliders-h"></i> Settings</h2>
+                            <button class="close-settings" id="closeSettingsBtn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="settings-content">
+                            <!-- Profile Section -->
+                            <div class="settings-section">
+                                <h3><i class="fas fa-user-circle"></i> Profile</h3>
+                                
+                                <div class="profile-avatar-section">
+                                    <div class="settings-avatar" id="settingsAvatar">U</div>
+                                    <button class="change-avatar-btn" id="changeAvatarBtn">
+                                        <i class="fas fa-camera"></i> Change Photo
+                                    </button>
+                                </div>
+                                
+                                <div class="settings-row">
+                                    <div class="settings-label">Username</div>
+                                    <input type="text" class="settings-input" id="usernameInput" placeholder="Enter username" />
+                                </div>
+                                
+                                <div class="settings-row">
+                                    <div class="settings-label">Email</div>
+                                    <input type="email" class="settings-input" id="emailInput" placeholder="Enter email" />
+                                </div>
+                            </div>
+                            
+                            <!-- Language Section -->
+                            <div class="settings-section">
+                                <h3><i class="fas fa-language"></i> Language</h3>
+                                
+                                <div class="selected-language" id="selectedLanguage">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>English</span>
+                                </div>
+                                
+                                <div class="language-selector">
+                                    <input type="text" class="language-search" id="languageSearch" placeholder="Search languages..." />
+                                    <div class="language-list" id="languageList"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Customize Section -->
+                            <div class="settings-section">
+                                <h3><i class="fas fa-paint-brush"></i> Customize</h3>
+                                
+                                <div class="toggle-switch">
+                                    <span class="toggle-label">Dark Mode</span>
+                                    <div class="toggle" id="darkModeToggle">
+                                        <div class="toggle-slider"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="toggle-switch">
+                                    <span class="toggle-label">Send with Enter</span>
+                                    <div class="toggle active" id="enterToggle">
+                                        <div class="toggle-slider"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- ===== FEEDBACK SECTION ===== -->
+                            <div class="settings-section">
+                                <h3><i class="fas fa-comment-dots"></i> Feedback</h3>
+                                <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 16px; line-height: 1.5;">
+                                    Help us improve Zeta AI! Send your suggestions, bug reports, or feedback to the developer.
+                                </p>
+                                <button class="feedback-btn" id="feedbackBtn">
+                                    <i class="fas fa-star"></i>
+                                    <span>Send Feedback</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-actions">
+                            <button class="settings-btn secondary" id="cancelSettingsBtn">Cancel</button>
+                            <button class="settings-btn primary" id="saveSettingsBtn">Save Changes</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FEEDBACK MODAL -->
+                <div class="feedback-modal" id="feedbackModal">
+                    <div class="feedback-panel">
+                        <div class="feedback-header">
+                            <h2><i class="fas fa-star"></i> Send Feedback</h2>
+                            <button class="close-feedback" id="closeFeedbackBtn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="feedback-content">
+                            <div class="feedback-section">
+                                <label class="feedback-label">Rating</label>
+                                <div class="rating-container" id="feedbackRating" data-value="5">
+                                    <span class="rating-star active" data-value="1">★</span>
+                                    <span class="rating-star active" data-value="2">★</span>
+                                    <span class="rating-star active" data-value="3">★</span>
+                                    <span class="rating-star active" data-value="4">★</span>
+                                    <span class="rating-star active" data-value="5">★</span>
+                                </div>
+                            </div>
+                            
+                            <div class="feedback-section">
+                                <label class="feedback-label">Your Feedback</label>
+                                <textarea 
+                                    class="feedback-textarea" 
+                                    id="feedbackText" 
+                                    placeholder="Tell us what you think... (feature requests, bugs, suggestions)"
+                                    rows="5"
+                                ></textarea>
+                            </div>
+                            
+                            <div class="feedback-section">
+                                <label class="feedback-label">Screenshot (optional)</label>
+                                <div class="screenshot-upload">
+                                    <input type="file" id="screenshotInput" accept="image/*" style="display: none;">
+                                    <button class="screenshot-btn" id="screenshotBtn">
+                                        <i class="fas fa-camera"></i> Attach Screenshot
+                                    </button>
+                                    <span class="screenshot-name" id="screenshotName"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="feedback-info">
+                                <i class="fas fa-info-circle"></i>
+                                <span>Your feedback helps us make Zeta AI better for everyone!</span>
+                            </div>
+                        </div>
+                        
+                        <div class="feedback-actions">
+                            <button class="feedback-btn secondary" id="cancelFeedbackBtn">Cancel</button>
+                            <button class="feedback-btn primary" id="submitFeedbackBtn">
+                                <i class="fas fa-paper-plane"></i> Submit Feedback
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TEMPLATES -->
+    <template id="emptyStateTemplate">
+        <div class="empty-state">
+            <i class="fas fa-comments"></i>
+            <h3>Welcome to Zeta AI</h3>
+            <p>Start a conversation by typing a message below</p>
+        </div>
+    </template>
+
+    <script type="module" src="auth.js"></script>
+    <script type="module" src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+# Environment variables
+.env
+.env.local
+.env.production
+
+# API Keys & Config
+server.js
+auth.js
+firebase-config.js
+
+# Dependencies
+node_modules/
+package-lock.json
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
